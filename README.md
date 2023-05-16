@@ -1,8 +1,8 @@
-# Makovec-Laravel
+# Makovec
 
 Makovec is a simple [Laravel](https://www.laravel.com)-based web application to manage devices not using 802.1X to connect to local area network (LAN) in CESNET's Telehouse offices.
 
-[![Actions Status](https://github.com/JanOppolzer/makovec-laravel/workflows/Laravel/badge.svg)](https://github.com/JanOppolzer/makovec-laravel/actions)
+[![Actions Status](https://github.com/JanOppolzer/makovec/workflows/Laravel/badge.svg)](https://github.com/JanOppolzer/makovec/actions)
 
 ## Requirements
 
@@ -10,10 +10,10 @@ This application is written in Laravel 10 and uses PHP version at least 8.1.
 
 Authentication is managed by locally running Shibboleth Service Provider, so Apache web server is highly recommended as there is an official Shibboleth module for Apache.
 
-- PHP 8.1
-- MariaDB 10
-- Shibboleth SP 3
-- Apache 2.4
+-   PHP 8.1
+-   MariaDB 10
+-   Shibboleth SP 3
+-   Apache 2.4
 
 The above mentioned requirements can easily be met by using Ubuntu 22.04 LTS (Jammy Jellyfish). For those running older Ubuntu or Debian, [Ondřej Surý's PPA repository](https://launchpad.net/~ondrej/+archive/ubuntu/php/) might be very appreciated.
 
@@ -65,7 +65,7 @@ Then get a TLS certificate. If you would like to avoid paying to a Certificate A
 
 It is also highly recommended to allow `web` user (the user defined in `envoy` file in the `TARGET_USER` variable, i.e. the one under which Makovec application is saved in `/home` directory) to reload and restart PHP-FPM. It helps with minimizing outage during deployment of a new version. Edit `/etc/sudoers.d/web` accordingly:
 
-```
+```text
 web ALL=(ALL) NOPASSWD:/bin/systemctl reload php8.1-fpm,/bin/systemctl restart php8.1-fpm
 ```
 
@@ -153,30 +153,30 @@ cp envoy.example envoy
 Tweaking `envoy` file to your needs should be easy as all the variables within the file are self explanatory. Then just run the _deploy_ task.
 
 ```bash
-php vendor/bin/envoy run deploy
+./vendor/bin/envoy run deploy
 ```
 
-#### Tasks
+### Tasks
 
 There are two tasks available — `deploy` and `cleanup`.
 
-##### deploy
+#### deploy
 
 The `deploy` task simply deploys the current version available at the repository into timestamped directory and makes a symbolic link `current`. This helps you with rolling back to the previous version if you need to. Just `ssh` into your web server and create a symbolic link to any previous version still available.
 
 ```bash
-php vendor/bin/envoy run deploy
+./vendor/bin/envoy run deploy
 ```
 
-##### cleanup
+#### cleanup
 
 The `cleanup` task helps you keeping your destination directory clean by leaving only three latest versions (i.e. timestamped directories) available and deletes all the older versions.
 
 ```bash
-php vendor/bin/envoy run cleanup
+./vendor/bin/envoy run cleanup
 ```
 
-#### Why no stories?
+### Why no stories?
 
 _Laravel Envoy_ allows to use "stories" to help with grouping a set of tasks. Eventually, it makes the whole script much more readable as well as reusable.
 
