@@ -29,7 +29,6 @@ class UserAccountCreated extends Mailable
         return new Envelope(
             to: User::activeAdminsEmails(),
             subject: __('emails.user_account_created_subject', ['name' => $this->user->name]),
-            replyTo: [new Address(config('mail.reply_to.address'), config('mail.reply_to.name'))],
         );
     }
 

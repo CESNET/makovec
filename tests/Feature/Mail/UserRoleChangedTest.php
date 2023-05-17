@@ -25,12 +25,6 @@ class UserRoleChangedTest extends TestCase
         $mailable->assertHasSubject(
             __('emails.user_role_changed_subject', ['name' => $user->name])
         );
-        $mailable->assertHasReplyTo(
-            [new Address(
-                config('mail.reply_to.address'),
-                config('mail.reply_to.name'),
-            )]
-        );
         $mailable->assertSeeInOrderInHtml([
             __('emails.user_role_changed_header'),
             __('emails.user_role_changed_body_revoked', ['name' => $user->name]),
@@ -50,12 +44,6 @@ class UserRoleChangedTest extends TestCase
 
         $mailable->assertHasSubject(
             __('emails.user_role_changed_subject', ['name' => $user->name]),
-        );
-        $mailable->assertHasReplyTo(
-            [new Address(
-                config('mail.reply_to.address'),
-                config('mail.reply_to.name'),
-            )]
         );
         $mailable->assertSeeInOrderInHtml([
             __('emails.user_role_changed_header'),

@@ -29,7 +29,6 @@ class YourRoleChanged extends Mailable
         return new Envelope(
             to: [new Address($this->user->email, $this->user->name)],
             subject: __('emails.your_role_changed_subject'),
-            replyTo: [new Address(config('mail.reply_to.address'), config('mail.reply_to.name'))],
         );
     }
 

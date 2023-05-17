@@ -22,12 +22,6 @@ class UserAccountCreatedTest extends TestCase
         $mailable->assertHasSubject(
             __('emails.user_account_created_subject', ['name' => $user->name])
         );
-        $mailable->assertHasReplyTo(
-            [new Address(
-                config('mail.reply_to.address'),
-                config('mail.reply_to.name')
-            )]
-        );
         $mailable->assertSeeInOrderInHtml([
             __('emails.user_account_created_header'),
             __('emails.user_account_created_body', ['name' => $user->name]),
