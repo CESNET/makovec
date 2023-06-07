@@ -5,7 +5,6 @@ namespace Tests\Feature\Mail;
 use App\Mail\UserStatusChanged;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Mail\Mailables\Address;
 use Tests\TestCase;
 
 class UserStatusChangedTest extends TestCase
