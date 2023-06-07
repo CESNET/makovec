@@ -33,7 +33,7 @@ class CreateEnabledDevicesViewCommand extends Command
                 SELECT
                     devices.mac,
                     devices.name,
-                    categories.vlan,
+                    CONCAT("%{GlobalVar:", categories.vlan, "}") AS vlan,
                     devices.valid_from,
                     devices.valid_to
                 FROM
