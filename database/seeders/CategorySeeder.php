@@ -29,6 +29,11 @@ class CategorySeeder extends Seeder
                 'vlan' => $type,
             ],
             [
+                'type' => $type = 'tv',
+                'description' => 'Televisions',
+                'vlan' => $type,
+            ],
+            [
                 'type' => $type = 'fallback',
                 'description' => 'Fallback VLAN',
                 'vlan' => $type,
