@@ -5,7 +5,7 @@ return [
     'blocked_info' => 'For more information and possible unblocking your account, contact us at',
     'cn' => 'common name',
     'contact' => 'In case of any issues or questions, do not hesitate to contact us at',
-    'introduction' => 'Welcome to <em>Makovec</em> application, a simple web application to manage devices and their <abbr title="Media Access Control">MAC</abbr> addresses connected to CESNET\'s LAN network.',
+    'introduction' => 'Welcome to <em>Makovec</em> application, a simple web application to manage devices and their <abbr title="Media Access Control">MAC</abbr> addresses connected to CESNET\'s LAN.',
     'mail' => 'email address',
     'pii-link' => 'https://www.cesnet.cz/personal-data-processing/?lang=en',
     'pii-text' => 'Personal data processing',
