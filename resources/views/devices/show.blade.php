@@ -85,7 +85,7 @@
     </x-model-show>
 
     <div>
-        <x-button-link href="{{ route('devices.index') }}">{{ __('common.back') }}</x-button-link>
+        <x-button-link href="{!! route('devices.index', $query) !!}">{{ __('common.back') }}</x-button-link>
         @can('update', $device)
             <x-button-link href="{{ route('devices.edit', $device) }}" color="yellow">{{ __('common.edit') }}</x-button-link>
         @endcan

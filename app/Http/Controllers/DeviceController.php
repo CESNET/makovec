@@ -9,6 +9,7 @@ use App\Models\Device;
 use App\Models\User;
 use App\Services\MacService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -74,7 +75,15 @@ class DeviceController extends Controller
 
         $device->load('logCreated', 'logUpdated');
 
-        return view('devices.show', compact('device'));
+        parse_str(
+            parse_url(
+                url()->previous()
+            )['query'] ?? null,
+            $array
+        );
+        $query = Arr::only($array, ['type', 'page']);
+
+        return view('devices.show', compact('device', 'query'));
     }
 
     /**
