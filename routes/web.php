@@ -8,6 +8,7 @@ use App\Http\Controllers\UserCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\UserStatusController;
+use App\Http\Controllers\UserSubroleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,7 @@ Route::resource('users', UserController::class)->except('edit', 'destroy');
 
 Route::patch('users/{user}/categories', [UserCategoryController::class, 'update'])->name('users.categories');
 Route::patch('users/{user}/role', [UserRoleController::class, 'update'])->name('users.role');
+Route::patch('users/{user}/subrole', [UserSubroleController::class, 'update'])->name('users.subrole');
 Route::patch('users/{user}/status', [UserStatusController::class, 'update'])->name('users.status');
 
 Route::get('login', [ShibbolethController::class, 'create'])->name('login')->middleware('guest');

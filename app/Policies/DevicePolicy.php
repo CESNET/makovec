@@ -12,7 +12,7 @@ class DevicePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->admin || $user->categories()->pluck('type')->count();
+        return $user->admin || $user->manager || $user->categories()->pluck('type')->count();
     }
 
     /**
@@ -20,7 +20,7 @@ class DevicePolicy
      */
     public function view(User $user, Device $device): bool
     {
-        return $user->admin || $user->categories()->pluck('type')->contains($device->category->type);
+        return $user->admin || $user->manager || $user->categories()->pluck('type')->contains($device->category->type);
     }
 
     /**
