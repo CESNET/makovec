@@ -27,7 +27,7 @@ class DeviceController extends Controller
     {
         $this->authorize('viewAny', Device::class);
 
-        $types = auth()->user()->admin
+        $types = auth()->user()->admin || auth()->user()->manager
             ? Category::pluck('type')
             : User::findOrFail(Auth::id())->categories()->pluck('type');
 

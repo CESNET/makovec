@@ -46,7 +46,7 @@
         </x-dl-div>
 
         @can('do-everything')
-            @unless($user->id == auth()->id())
+            @unless ($user->id == auth()->id())
                 <x-dl-div>
                     <x-slot:dt>{{ __('common.roles') }}</x-slot:dt>
                     <x-user-roles :user="$user" :categories="$categories" />
@@ -67,6 +67,10 @@
         @includeWhen(request()->user()->can('update', $user) &&
                 !request()->user()->is($user),
             'users.partials.status')
+
+        @includeWhen(request()->user()->can('do-everything') &&
+                !request()->user()->is($user),
+            'users.partials.subrole')
 
         @includeWhen(request()->user()->can('do-everything') &&
                 !request()->user()->is($user),

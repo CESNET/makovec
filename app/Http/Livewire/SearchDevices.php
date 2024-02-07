@@ -39,7 +39,7 @@ class SearchDevices extends Component
         $sort = $this->sort ?: 'mac';
         $order = strcasecmp($this->order, 'desc') === 0 ? 'DESC' : 'ASC';
 
-        $types = auth()->user()->admin
+        $types = auth()->user()->admin || auth()->user()->manager
             ? Category::pluck('type')
             : User::findOrFail(Auth::id())->categories()->pluck('type');
 

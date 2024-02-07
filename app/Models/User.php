@@ -40,6 +40,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'admin' => 'boolean',
+        'manager' => 'boolean',
         'active' => 'boolean',
         'login_at' => 'datetime',
     ];
