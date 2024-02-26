@@ -10,10 +10,10 @@ This application is written in Laravel 10 and uses PHP version at least 8.1.
 
 Authentication is managed by locally running Shibboleth Service Provider, so Apache web server is highly recommended as there is an official Shibboleth module for Apache.
 
--   PHP 8.1
--   MariaDB 10
--   Shibboleth SP 3
--   Apache 2.4
+- PHP 8.1
+- MariaDB 10
+- Shibboleth SP 3
+- Apache 2.4
 
 The above mentioned requirements can easily be met by using Ubuntu 22.04 LTS (Jammy Jellyfish). For those running older Ubuntu or Debian, [Ondřej Surý's PPA repository](https://launchpad.net/~ondrej/+archive/ubuntu/php/) might be very appreciated.
 
@@ -181,3 +181,16 @@ The `cleanup` task helps you keeping your destination directory clean by leaving
 _Laravel Envoy_ allows to use "stories" to help with grouping a set of tasks. Eventually, it makes the whole script much more readable as well as reusable.
 
 There is one downside with stories, though. If your SSH agent requests confirming every use of your key (a highly recommended best practice!), you must confirm the key usage for every single Envoy story. I find it **very** annoying so therefore I have decided not to use stories after all.
+
+## Local Development
+
+To run this application locally for development, the easiest way is via Laravel Sail.
+
+```bash
+git clone https://github.com/JanOppolzer/makovec
+cd makovec
+composer install
+cp .env.example .env
+php artisan key:generate
+./vendor/bin/sail up -d
+```
