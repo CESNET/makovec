@@ -17,6 +17,10 @@ class FakeController extends Controller
             $user = User::findOrFail($request->id);
             $user->update(['login_at' => now()]);
 
+            if (! $user->active) {
+                return view('blocked');
+            }
+
             Auth::login($user);
             Session::regenerate();
 

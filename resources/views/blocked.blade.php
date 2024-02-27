@@ -36,7 +36,8 @@
                 <hr class="hidden">
                 <p class="text-center opacity-75">
                     <small class="text-sm">
-                        &copy; 2023 <a class="hover:underline text-blue-500" href="https://www.cesnet.cz">CESNET</a>,
+                        &copy; 2023&ndash;<?= date('Y') ?> <a class="hover:underline text-blue-500"
+                            href="https://www.cesnet.cz">CESNET</a>,
                         <a class="hover:underline text-blue-500" href="mailto:info@eduroam.cz">info@eduroam.cz</a>.
                     </small>
                 </p>
