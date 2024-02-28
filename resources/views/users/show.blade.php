@@ -69,7 +69,8 @@
             'users.partials.status')
 
         @includeWhen(request()->user()->can('do-everything') &&
-                !request()->user()->is($user),
+                !request()->user()->is($user) &&
+                !$user->admin,
             'users.partials.subrole')
 
         @includeWhen(request()->user()->can('do-everything') &&
