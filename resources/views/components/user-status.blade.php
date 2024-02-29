@@ -20,7 +20,7 @@
     </span>
 @endif
 
-@if ($model->manager)
+@if ($model->manager && !$model->admin)
     <span
         class="dark:bg-indigo-800 dark:text-indigo-100 px-2 ml-2 text-xs font-semibold text-indigo-800 bg-indigo-100 rounded-full">
         {{ __('common.manager') }}

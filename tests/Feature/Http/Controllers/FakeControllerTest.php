@@ -24,7 +24,7 @@ class FakeControllerTest extends TestCase
         $this
             ->followingRedirects()
             ->from('/')
-            ->post(route('fakelogin'), ['id' => 1])
+            ->post(route('fakelogin'), ['id' => $user->id])
             ->assertOk();
 
         $user->refresh();
