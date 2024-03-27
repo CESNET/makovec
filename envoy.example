@@ -2,7 +2,7 @@ TARGET_SERVER=server.example.org
 TARGET_USER=web
 TARGET_DIR=makovec
 
-REPOSITORY=https://github.com/JanOppolzer/makovec
+REPOSITORY=https://github.com/CESNET/makovec
 
 APP_NAME=Makovec
 APP_ENV=production

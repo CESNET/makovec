@@ -2,7 +2,7 @@
 
 Makovec is a simple [Laravel](https://www.laravel.com)-based web application to manage devices not using 802.1X to connect to local area network (LAN) in CESNET's Telehouse offices.
 
-[![Actions Status](https://github.com/JanOppolzer/makovec/workflows/Laravel/badge.svg)](https://github.com/JanOppolzer/makovec/actions)
+[![Actions Status](https://github.com/CESNET/makovec/workflows/Laravel/badge.svg)](https://github.com/CESNET/makovec/actions)
 
 ## Requirements
 
@@ -135,7 +135,7 @@ The destination host should be running Ubuntu 22.04 LTS (Jammy Jellyfish) with P
 Clone this repository:
 
 ```bash
-git clone https://github.com/JanOppolzer/makovec
+git clone https://github.com/CESNET/makovec
 ```
 
 Install PHP dependencies:
@@ -187,7 +187,7 @@ There is one downside with stories, though. If your SSH agent requests confirmin
 To run this application locally for development, the easiest way is via Laravel Sail.
 
 ```bash
-git clone https://github.com/JanOppolzer/makovec
+git clone https://github.com/CESNET/makovec
 cd makovec
 composer install
 cp .env.example .env
