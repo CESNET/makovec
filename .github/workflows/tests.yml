@@ -52,5 +52,5 @@ jobs:
       - name: Execute tests
         env:
           DB_CONNECTION: sqlite
-          DB_DATABASE: /home/runner/work/ciselnik/ciselnik/database/database.sqlite
+          DB_DATABASE: /home/runner/work/makovec/makovec/database/database.sqlite
         run: vendor/bin/phpunit
