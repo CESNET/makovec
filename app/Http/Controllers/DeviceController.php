@@ -11,21 +11,17 @@ use App\Services\MacService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class DeviceController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        $this->authorize('viewAny', Device::class);
+        Gate::authorize('viewAny', Device::class);
 
         $types = auth()->user()->admin || auth()->user()->manager
             ? Category::pluck('type')
@@ -39,7 +35,7 @@ class DeviceController extends Controller
      */
     public function create(): View
     {
-        $this->authorize('create', Device::class);
+        Gate::authorize('create', Device::class);
 
         $categories = auth()->user()->admin
             ? Category::select('id', 'type')->get()
@@ -53,7 +49,7 @@ class DeviceController extends Controller
      */
     public function store(StoreDeviceRequest $request, MacService $macService): RedirectResponse
     {
-        $this->authorize('create', Device::class);
+        Gate::authorize('create', Device::class);
 
         $category = Category::findOrFail($request->validated()['category_id']);
         $device = Device::create(array_merge(
@@ -71,9 +67,9 @@ class DeviceController extends Controller
      */
     public function show(Device $device): View
     {
-        $this->authorize('view', $device);
+        Gate::authorize('view', $device);
 
-        $device->load('logCreated', 'logUpdated');
+        // $device->load('logCreated', 'logUpdated');
 
         parse_str(
             parse_url(
@@ -91,7 +87,7 @@ class DeviceController extends Controller
      */
     public function edit(Device $device): View
     {
-        $this->authorize('update', $device);
+        Gate::authorize('update', $device);
 
         return view('devices.edit', compact('device'));
     }
@@ -101,7 +97,7 @@ class DeviceController extends Controller
      */
     public function update(UpdateDeviceRequest $request, Device $device): RedirectResponse
     {
-        $this->authorize('update', $device);
+        Gate::authorize('update', $device);
 
         $device->update($request->validated());
 
@@ -118,7 +114,7 @@ class DeviceController extends Controller
      */
     public function destroy(Device $device): RedirectResponse
     {
-        $this->authorize('delete', $device);
+        Gate::authorize('delete', $device);
 
         $name = $device->mac;
         $device->delete();

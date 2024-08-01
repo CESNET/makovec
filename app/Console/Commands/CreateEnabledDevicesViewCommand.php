@@ -24,7 +24,7 @@ class CreateEnabledDevicesViewCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle(): void
+    public function handle()
     {
         DB::statement('
             CREATE VIEW IF NOT EXISTS

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Category;
 use App\Models\User;
@@ -39,7 +39,7 @@ class AddCategoryManagers extends Component
         $this->search = '';
         $this->users = '';
 
-        $this->emitTo('list-category-managers', 'refreshList');
+        $this->dispatch('manager-added');
     }
 
     public function render()

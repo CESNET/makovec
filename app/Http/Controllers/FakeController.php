@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class FakeController extends Controller
 {
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request): RedirectResponse|View
     {
-        if (app()->environment(['local', 'testing'])) {
+        if (App::environment('local', 'testing')) {
             $user = User::findOrFail($request->id);
             $user->update(['login_at' => now()]);
 
@@ -28,9 +32,12 @@ class FakeController extends Controller
         }
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(): RedirectResponse
     {
-        if (app()->environment(['local', 'testing'])) {
+        if (App::environment('local', 'testing')) {
             Auth::logout();
             Session::flush();
 

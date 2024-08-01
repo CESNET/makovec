@@ -3,11 +3,12 @@
 namespace Tests\Feature\Services;
 
 use App\Services\MacService;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class MacServiceTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function macservice_clean_function_returns_null_for_null_input(): void
     {
         $macService = new MacService;
@@ -15,7 +16,7 @@ class MacServiceTest extends TestCase
         $this->assertNull($macService->clean());
     }
 
-    /** @test */
+    #[Test]
     public function macservice_clean_function_returns_clean_mac_address_for_proper_input(): void
     {
         $macService = new MacService;
@@ -25,7 +26,7 @@ class MacServiceTest extends TestCase
         $this->assertEquals('12:34:56:78:90:AB', $macService->clean('1234.5678.90ab'));
     }
 
-    /** @test */
+    #[Test]
     public function macservice_isreserved_function_works_correctly(): void
     {
         $macService = new MacService;

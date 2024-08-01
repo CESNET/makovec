@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -27,23 +28,19 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Get the attributes that should be cast.
      *
-     * @var array<int, string>
+     * @return array<string, string>
      */
-    protected $hidden = [];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'admin' => 'boolean',
-        'manager' => 'boolean',
-        'active' => 'boolean',
-        'login_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'admin' => 'boolean',
+            'manager' => 'boolean',
+            'active' => 'boolean',
+            'login_at' => 'datetime',
+        ];
+    }
 
     public function categories(): BelongsToMany
     {

@@ -5,14 +5,14 @@ namespace Tests\Feature\Http\Controllers;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Mail;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_see_the_list_of_users(): void
     {
         User::factory()->times(10)->create();
@@ -25,27 +25,7 @@ class UserControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
-    public function an_anonymouse_cannot_see_a_form_to_add_a_new_user(): void
-    {
-        $this
-            ->followingRedirects()
-            ->get(route('users.create'))
-            ->assertOk()
-            ->assertSeeText('login');
-    }
-
-    /** @test */
-    public function an_anonymouse_cannot_add_a_new_user(): void
-    {
-        $this
-            ->followingRedirects()
-            ->post(route('users.store'))
-            ->assertOk()
-            ->assertSeeText('login');
-    }
-
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_see_users_details(): void
     {
         $user = User::factory()->create();
@@ -58,7 +38,7 @@ class UserControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_update_a_user(): void
     {
         $user = User::factory()->create();
@@ -71,7 +51,7 @@ class UserControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_see_the_list_of_users(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -86,39 +66,7 @@ class UserControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
-    public function a_user_cannot_see_a_form_to_add_a_new_user(): void
-    {
-        $user = User::factory()->create(['active' => true]);
-        $user->refresh();
-
-        $this->assertCount(1, User::all());
-        $this
-            ->actingAs($user)
-            ->followingRedirects()
-            ->get(route('users.create'))
-            ->assertForbidden();
-    }
-
-    /** @test */
-    public function a_user_cannot_add_a_new_user(): void
-    {
-        $user = User::factory()->create(['active' => true]);
-        $user->refresh();
-
-        $this->assertCount(1, User::all());
-        $this
-            ->actingAs($user)
-            ->followingRedirects()
-            ->post(route('users.store', [
-                'name' => fake()->name(),
-                'uniqueid' => fake()->unique()->safeEmail(),
-                'email' => 'dummy@cesnet.cz',
-            ]))
-            ->assertForbidden();
-    }
-
-    /** @test */
+    #[Test]
     public function a_user_cannot_see_users_details(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -132,7 +80,7 @@ class UserControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_can____see_their_details(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -149,7 +97,7 @@ class UserControllerTest extends TestCase
             ->assertSee($user->email);
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_update_users_details(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -163,7 +111,7 @@ class UserControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_can_update_own_details(): void
     {
         $old_email = fake()->safeEmail();
@@ -189,7 +137,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals($new_email, $user->email);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_see_the_list_of_users(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -201,83 +149,10 @@ class UserControllerTest extends TestCase
             ->followingRedirects()
             ->get(route('users.index'))
             ->assertOk()
-            ->assertSeeTextInOrder(['Showing', '1', 'to', '15', 'of', '16']);
+            ->assertSeeTextInOrder(['Showing', '1', 'to', '10', 'of', '16']);
     }
 
-    /** @test */
-    public function an_admin_can_see_a_form_to_add_a_new_user(): void
-    {
-        $admin = User::factory()->create(['active' => true, 'admin' => true]);
-
-        $this->assertCount(1, User::all());
-        $this
-            ->actingAs($admin)
-            ->followingRedirects()
-            ->get(route('users.create'))
-            ->assertOk()
-            ->assertSeeText(__('common.add'));
-    }
-
-    /** @test */
-    public function an_admin_can_add_a_new_user(): void
-    {
-        Mail::fake();
-
-        $admin = User::factory()->create(['active' => true, 'admin' => true]);
-
-        $this->assertCount(1, User::all());
-        $this
-            ->actingAs($admin)
-            ->followingRedirects()
-            ->post(route('users.store', [
-                'name' => $userName = fake()->name(),
-                'uniqueid' => $userUniqueId = fake()->unique()->safeEmail(),
-                'email' => $userEmail = 'dummy@cesnet.cz',
-            ]))
-            ->assertOk()
-            ->assertSeeText(__('users.added', ['name' => $userName]));
-        $this->assertCount(2, User::all());
-        $user = User::orderBy('id', 'desc')->first();
-        $this->assertEquals($userName, $user->name);
-        $this->assertEquals($userUniqueId, $user->uniqueid);
-        $this->assertEquals($userEmail, $user->email);
-    }
-
-    /**
-     * @test
-     *
-     * @dataProvider invalidUserData
-     */
-    public function test_validation_for_a_new_user(string $field, mixed $data, string $message): void
-    {
-        Mail::fake();
-
-        $admin = User::factory()->create(['active' => true, 'admin' => true]);
-
-        $this->assertCount(1, User::all());
-        $this
-            ->actingAs($admin)
-            ->post(route('users.store', [$field => $data]))
-            ->assertSessionHasErrors([$field => $message]);
-    }
-
-    public static function invalidUserData(): array
-    {
-        return [
-            ['name', '', 'The name field is required.'],
-            ['name', 'A', 'The name field must be at least 3 characters.'],
-            ['name', str_repeat('x', 256), 'The name field must not be greater than 255 characters.'],
-            ['uniqueid', '', 'The uniqueid field is required.'],
-            ['uniqueid', fake()->word(), 'The uniqueid field must be a valid email address.'],
-            ['uniqueid', fake()->unique()->safeEmail().str_repeat('x', 255), 'The uniqueid field must not be greater than 255 characters.'],
-            ['email', '', 'The email field is required.'],
-            ['email', fake()->word(), 'The email field must be a valid email address.'],
-            ['email', 'dummy@cesnet.cz'.str_repeat('x', 255), 'The email field must not be greater than 255 characters.'],
-            ['email', fake()->unique()->safeEmail(), 'The email field must be a valid email address.'],
-        ];
-    }
-
-    /** @test */
+    #[Test]
     public function an_admin_can_see_users_details(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -294,7 +169,7 @@ class UserControllerTest extends TestCase
             ->assertSeeText($user->email);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_see_their_details(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -310,7 +185,7 @@ class UserControllerTest extends TestCase
             ->assertSeeText($admin->email);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_update_a_users_details(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -336,7 +211,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals($new_email, $user->email);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_update_a_users_details_with_no_change(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -350,7 +225,7 @@ class UserControllerTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_update_own_details(): void
     {
         $old_email = fake()->safeEmail();
@@ -376,7 +251,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals($new_email, $admin->email);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_toggle_own_role(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);

@@ -5,13 +5,14 @@ namespace Tests\Feature\Mail;
 use App\Mail\YourRoleChanged;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class YourRoleChangedTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function your_role_changed_notification_email_check(): void
     {
         $user = User::factory()->create(['active' => true]);

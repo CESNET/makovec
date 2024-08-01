@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Category;
 use App\Models\Device;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,20 +15,17 @@ class SearchDevices extends Component
 {
     use WithPagination;
 
+    #[Url(except: '')]
     public string $search = '';
 
+    #[Url(except: '')]
     public string $type = '';
 
+    #[Url(except: '')]
     public string $sort = '';
 
+    #[Url(except: '')]
     public string $order = '';
-
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'type' => ['except' => ''],
-        'sort' => ['except' => ''],
-        'order' => ['except' => ''],
-    ];
 
     public function updatedSearch()
     {

@@ -5,13 +5,14 @@ namespace Tests\Feature\Mail;
 use App\Mail\YourSubroleChanged;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class YourSubroleChangedTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function your_subrole_changed_notification_email_check(): void
     {
         $user = User::factory()->create(['active' => true]);

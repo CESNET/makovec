@@ -6,13 +6,14 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class FakeControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function a_user_can_log_in_using_fakecontroller(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -34,7 +35,29 @@ class FakeControllerTest extends TestCase
         $this->assertNotNull($user->login_at);
     }
 
-    /** @test */
+    #[Test]
+    public function an_inactive_user_sees_blocked_information(): void
+    {
+        $user = User::factory()->create(['active' => false]);
+        $user->refresh();
+
+        $this->assertCount(1, User::all());
+        $this->assertNull($user->login_at);
+
+        $this
+            ->followingRedirects()
+            ->from('/')
+            ->post(route('fakelogin'), ['id' => $user->id])
+            ->assertOk()
+            ->assertViewIs('blocked');
+
+        $user->refresh();
+
+        $this->assertFalse(Auth::check());
+        $this->assertNotNull($user->login_at);
+    }
+
+    #[Test]
     public function a_user_can_log_out_using_fakecontroller(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -55,7 +78,7 @@ class FakeControllerTest extends TestCase
             ->get(route('fakelogout'))
             ->assertOk();
 
-        $this->assertEquals(route('home'), url()->current());
+        $this->assertEquals('http://localhost', url()->current());
 
         $this->assertFalse(Auth::check());
         $this->assertTrue(Auth::guest());

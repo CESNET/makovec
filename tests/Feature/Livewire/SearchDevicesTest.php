@@ -2,19 +2,20 @@
 
 namespace Tests\Feature\Livewire;
 
-use App\Http\Livewire\SearchDevices;
+use App\Livewire\SearchDevices;
 use App\Models\Category;
 use App\Models\Device;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class SearchDevicesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function search_devices_component_can_render()
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -25,7 +26,7 @@ class SearchDevicesTest extends TestCase
         $component->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     public function devices_index_page_contains_search_devices_component(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -41,7 +42,7 @@ class SearchDevicesTest extends TestCase
             ->assertSeeLivewire(SearchDevices::class);
     }
 
-    /** @test */
+    #[Test]
     public function search_devices_component_can_search_devices(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);

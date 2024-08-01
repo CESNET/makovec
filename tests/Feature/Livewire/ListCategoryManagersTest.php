@@ -2,18 +2,19 @@
 
 namespace Tests\Feature\Livewire;
 
-use App\Http\Livewire\ListCategoryManagers;
+use App\Livewire\ListCategoryManagers;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ListCategoryManagersTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function list_category_managers_component_can_render()
     {
         $category = Category::factory()->create();
@@ -25,7 +26,7 @@ class ListCategoryManagersTest extends TestCase
         $component->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     public function categories_show_page_contains_list_category_managers_component(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -39,7 +40,7 @@ class ListCategoryManagersTest extends TestCase
             ->assertSeeLivewire(ListCategoryManagers::class);
     }
 
-    /** @test */
+    #[Test]
     public function list_category_managers_component_can_list_users(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -64,7 +65,7 @@ class ListCategoryManagersTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function list_category_managers_component_can_delete_a_manager(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);

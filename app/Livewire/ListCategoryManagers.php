@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ListCategoryManagers extends Component
@@ -12,8 +13,6 @@ class ListCategoryManagers extends Component
     public int $category;
 
     public Collection $users;
-
-    protected $listeners = ['refreshList' => '$refresh'];
 
     public function deleteManager(int $manager)
     {
@@ -24,6 +23,7 @@ class ListCategoryManagers extends Component
             ->detach($user);
     }
 
+    #[On('manager-added')]
     public function render()
     {
         $this->users = Category::findOrFail($this->category)

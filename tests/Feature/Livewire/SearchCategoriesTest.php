@@ -2,19 +2,20 @@
 
 namespace Tests\Feature\Livewire;
 
-use App\Http\Livewire\SearchCategories;
+use App\Livewire\SearchCategories;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class SearchCategoriesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function search_categories_component_can_render()
     {
         $component = Livewire::test(SearchCategories::class);
@@ -22,7 +23,7 @@ class SearchCategoriesTest extends TestCase
         $component->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     public function categories_index_page_contains_search_categories_component(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -36,7 +37,7 @@ class SearchCategoriesTest extends TestCase
             ->assertSeeLivewire(SearchCategories::class);
     }
 
-    /** @test */
+    #[Test]
     public function search_categories_component_can_search_categories(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);

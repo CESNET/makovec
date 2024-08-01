@@ -4,13 +4,14 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class UserStatusControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_toggle_users_status(): void
     {
         $user = User::factory()->create();
@@ -23,7 +24,7 @@ class UserStatusControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_toggle_users_status(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -37,7 +38,7 @@ class UserStatusControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_toggle_own_status(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -50,7 +51,7 @@ class UserStatusControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_toggle_users_status(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -68,7 +69,7 @@ class UserStatusControllerTest extends TestCase
         $this->assertFalse($user->active);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_toggle_own_status(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);

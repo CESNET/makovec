@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-24.04
+
+    name: Build and release
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Clean release
+        run: |
+          rm -rf .git* node_modules
+
+      - name: Define release version
+        run: |
+          TAG=${{ github.ref_name }}
+          {
+            echo "TAG=$TAG"
+            echo "VERSION=${TAG#v}"
+          } >> "$GITHUB_ENV"
+
+      - name: Build release
+        run: |
+          DIRECTORY="makovec-$VERSION"
+          TARGET="/tmp/makovec-$VERSION.tar.gz"
+          cd ..
+          cp -R makovec "$DIRECTORY"
+          tar --owner 0 --group 0 -czf "$TARGET" "$DIRECTORY"
+          rm -rf "$DIRECTORY"
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: /tmp/makovec-*.tar.gz

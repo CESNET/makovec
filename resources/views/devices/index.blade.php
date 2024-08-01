@@ -24,6 +24,6 @@
 
 @section('content')
 
-    @livewire('search-devices')
+    <livewire:search-devices />
 
 @endsection

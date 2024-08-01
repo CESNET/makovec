@@ -41,7 +41,7 @@
 
             <x-select name="enabled">
                 <option value="1" @if ($device->enabled) selected @endif>{{ __('common.enabled') }}</option>
-                <option value="0" @unless($device->enabled) selected @endunless>{{ __('common.disabled') }}
+                <option value="0" @unless ($device->enabled) selected @endunless>{{ __('common.disabled') }}
                 </option>
             </x-select>
             <x-error-message name="enabled" />
