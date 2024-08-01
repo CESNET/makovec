@@ -289,7 +289,7 @@ class DeviceControllerTest extends TestCase
             ->followingRedirects()
             ->get(route('devices.show', $device))
             ->assertOk()
-            ->assertSeeTextInOrder([$device->mac, $device->name, $device->description ?? '--']);
+            ->assertSeeTextInOrder([$device->mac, $device->name, $device->description]);
     }
 
     #[Test]
