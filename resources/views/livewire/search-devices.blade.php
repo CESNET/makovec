@@ -8,21 +8,21 @@
 
             <x-slot:thead>
                 <x-th>{{ __('common.mac') }}
-                    <x-db-sort :search="$search" sort="mac" />
+                    <x-db-sort :search="$search" :type="$type" sort="mac" />
                 </x-th>
                 <x-th>{{ __('common.type') }}
                 </x-th>
                 <x-th>{{ __('common.name') }}
-                    <x-db-sort :search="$search" sort="name" />
+                    <x-db-sort :search="$search" :type="$type" sort="name" />
                 </x-th>
                 <x-th>{{ __('common.enabled') }}
-                    <x-db-sort :search="$search" sort="enabled" />
+                    <x-db-sort :search="$search" :type="$type" sort="enabled" />
                 </x-th>
                 <x-th>{{ __('common.valid_from') }}
-                    <x-db-sort :search="$search" sort="valid_from" />
+                    <x-db-sort :search="$search" :type="$type" sort="valid_from" />
                 </x-th>
                 <x-th>{{ __('common.valid_to') }}
-                    <x-db-sort :search="$search" sort="valid_to" />
+                    <x-db-sort :search="$search" :type="$type" sort="valid_to" />
                 </x-th>
                 <x-th>&nbsp;</x-th>
             </x-slot:thead>
