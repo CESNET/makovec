@@ -12,6 +12,7 @@ use App\Http\Controllers\UserSubroleController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
+Route::view('up', 'health-up');
 Route::view('/', 'welcome')->middleware('guest');
 
 Route::middleware('auth')->group(function () {
