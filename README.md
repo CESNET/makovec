@@ -2,7 +2,8 @@
 
 Makovec is a simple [Laravel](https://www.laravel.com)-based web application to manage devices not using 802.1X to connect to local area network (LAN) in CESNET's Telehouse offices.
 
-[![Actions Status](https://github.com/CESNET/makovec/workflows/Laravel/badge.svg)](https://github.com/CESNET/makovec/actions)
+![pint.yml](https://github.com/CESNET/makovec/actions/workflows/tests.yml/badge.svg)
+![release.yml](https://github.com/CESNET/makovec/actions/workflows/release.yml/badge.svg)
 
 ## Requirements
 
