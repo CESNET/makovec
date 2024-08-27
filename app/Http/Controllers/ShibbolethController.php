@@ -11,6 +11,9 @@ use Illuminate\View\View;
 
 class ShibbolethController extends Controller
 {
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create(): RedirectResponse|string
     {
         if (is_null(request()->server('Shib-Handler'))) {
@@ -25,6 +28,9 @@ class ShibbolethController extends Controller
         );
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(): RedirectResponse|View
     {
         $mail = explode(';', request()->server('mail'));
@@ -55,6 +61,9 @@ class ShibbolethController extends Controller
         return redirect()->intended('/');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(): RedirectResponse
     {
         Auth::logout();

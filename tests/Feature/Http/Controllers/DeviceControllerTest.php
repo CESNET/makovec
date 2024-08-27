@@ -6,13 +6,15 @@ use App\Models\Category;
 use App\Models\Device;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class DeviceControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_see_the_list_of_devices(): void
     {
         Device::factory()->for(Category::factory())->count(10)->create();
@@ -25,7 +27,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_see_a_form_to_add_a_new_device(): void
     {
         $this
@@ -35,7 +37,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_add_a_new_device(): void
     {
         $device = Device::factory()->make()->toArray();
@@ -47,7 +49,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_see_devices_details(): void
     {
         $device = Device::factory()->for(Category::factory())->create();
@@ -60,7 +62,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_see_devices_edit_form(): void
     {
         $device = Device::factory()->for(Category::factory())->create();
@@ -73,7 +75,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_update_a_device(): void
     {
         $device = Device::factory()->for(Category::factory())->create();
@@ -86,7 +88,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_delete_a_device(): void
     {
         $device = Device::factory()->for(Category::factory())->create();
@@ -99,7 +101,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function a_user_without_permissions_cannot_see_the_list_of_devices(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -114,7 +116,7 @@ class DeviceControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_without_permissions_cannot_see_a_form_to_add_a_new_device(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -126,7 +128,7 @@ class DeviceControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_without_permissions_cannot_add_a_new_device(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -143,7 +145,7 @@ class DeviceControllerTest extends TestCase
         $this->assertCount(0, Device::all());
     }
 
-    /** @test */
+    #[Test]
     public function a_user_without_permissions_cannot_see_devices_details(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -158,7 +160,7 @@ class DeviceControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_without_permissions_cannot_see_devices_edit_form(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -173,7 +175,7 @@ class DeviceControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_without_permissions_cannot_update_a_device(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -189,7 +191,7 @@ class DeviceControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_without_permissions_cannot_delete_a_device(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -204,7 +206,7 @@ class DeviceControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_with_permissions_can_see_the_list_of_devices(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -224,7 +226,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeTextInOrder(Device::orderBy('mac')->select('mac')->get()->pluck('mac')->toArray());
     }
 
-    /** @test */
+    #[Test]
     public function a_user_with_permissions_can_see_a_form_to_add_a_new_device(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -250,7 +252,7 @@ class DeviceControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function a_user_with_permissions_can_add_a_new_device(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -270,7 +272,7 @@ class DeviceControllerTest extends TestCase
         $this->assertCount(1, Device::all());
     }
 
-    /** @test */
+    #[Test]
     public function a_user_with_permissions_can_see_devices_details(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -287,10 +289,10 @@ class DeviceControllerTest extends TestCase
             ->followingRedirects()
             ->get(route('devices.show', $device))
             ->assertOk()
-            ->assertSeeTextInOrder([$device->mac, $device->name, $device->description ?? '--']);
+            ->assertSeeTextInOrder([$device->mac, $device->name, $device->description]);
     }
 
-    /** @test */
+    #[Test]
     public function a_user_with_permissions_can_see_devices_edit_form(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -307,10 +309,10 @@ class DeviceControllerTest extends TestCase
             ->followingRedirects()
             ->get(route('devices.edit', $device))
             ->assertOk()
-            ->assertSeeInOrder([$device->mac, $device->name, $device->description ?? '--']);
+            ->assertSeeInOrder([$device->mac, $device->name, $device->description]);
     }
 
-    /** @test */
+    #[Test]
     public function a_user_with_permissions_can_update_a_device(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -331,7 +333,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText(__('devices.updated', ['name' => $device_new['mac'], 'model' => $category->type]));
     }
 
-    /** @test */
+    #[Test]
     public function a_user_with_permissions_can_delete_a_device(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -351,7 +353,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText(__('devices.deleted', ['name' => $device->mac, 'model' => $device->type]));
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_see_the_list_of_devices(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -369,7 +371,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeTextInOrder(Device::orderBy('mac')->select('mac')->get()->pluck('mac')->toArray());
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_see_a_form_to_add_a_new_device(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -391,7 +393,7 @@ class DeviceControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_add_a_new_device(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -409,11 +411,7 @@ class DeviceControllerTest extends TestCase
         $this->assertCount(1, Device::all());
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidDeviceData
-     */
+    #[DataProvider('invalidDeviceData')]
     public function test_validation_for_a_new_device(string $field, mixed $data, string $message): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -442,7 +440,7 @@ class DeviceControllerTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_add_a_device_with_reserved_mac_address(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -459,7 +457,7 @@ class DeviceControllerTest extends TestCase
         $this->assertCount(0, Device::all());
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_add_a_device_with_duplicated_mac_address(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -478,7 +476,7 @@ class DeviceControllerTest extends TestCase
         $this->assertCount(1, Device::all());
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_add_a_device_to_a_missing_category(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -494,7 +492,7 @@ class DeviceControllerTest extends TestCase
             ->assertSessionHasErrors(['category_id' => __('devices.unknown_category')]);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_see_devices_details(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -512,7 +510,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeTextInOrder([$device->mac, $device->name, $device->description ?? '--']);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_see_devices_edit_form(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -527,10 +525,10 @@ class DeviceControllerTest extends TestCase
             ->followingRedirects()
             ->get(route('devices.edit', $device))
             ->assertOk()
-            ->assertSeeInOrder([$device->mac, $device->name, $device->description ?? '--']);
+            ->assertSeeInOrder([$device->mac, $device->name, $device->description]);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_update_a_device(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -549,11 +547,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText(__('devices.updated', ['name' => $device_new['mac'], 'model' => $category->type]));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidDeviceData2
-     */
+    #[DataProvider('invalidDeviceData2')]
     public function test_validation_for_an_existing_device(string $field, mixed $data, string $message): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -584,7 +578,7 @@ class DeviceControllerTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_update_a_device_with_no_change(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -601,7 +595,7 @@ class DeviceControllerTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_update_a_device_with_duplicated_mac_address(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -618,7 +612,7 @@ class DeviceControllerTest extends TestCase
             ->assertSessionHasErrors(['mac' => __('devices.uniqueness_required')]);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_update_a_device_with_reserved_mac_address(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -635,7 +629,7 @@ class DeviceControllerTest extends TestCase
             ->assertSessionHasErrors(['mac' => __('devices.reserved_mac_address')]);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_delete_a_device(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -653,7 +647,7 @@ class DeviceControllerTest extends TestCase
             ->assertSeeText(__('devices.deleted', ['name' => $device->mac, 'model' => $device->type]));
     }
 
-    /** @test */
+    #[Test]
     public function a_form_to_add_a_device_shows_all_texts(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);

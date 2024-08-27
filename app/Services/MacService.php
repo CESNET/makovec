@@ -4,7 +4,7 @@ namespace App\Services;
 
 class MacService
 {
-    public function clean(string $mac = null): string|null
+    public function clean(?string $mac = null): ?string
     {
         if (is_null($mac)) {
             return null;

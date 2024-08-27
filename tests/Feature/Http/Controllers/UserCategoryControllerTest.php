@@ -4,13 +4,14 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class UserCategoryControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_set_users_categories(): void
     {
         $user = User::factory()->create();
@@ -23,7 +24,7 @@ class UserCategoryControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_set_users_categories(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -37,7 +38,7 @@ class UserCategoryControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_set_own_categories(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -50,7 +51,7 @@ class UserCategoryControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_set_users_categories(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -67,7 +68,7 @@ class UserCategoryControllerTest extends TestCase
             ->assertSeeText(__('users.roles_updated'));
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_set_own_categories(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);

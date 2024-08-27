@@ -7,18 +7,17 @@ use App\Mail\YourSubroleChanged;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 
 class UserSubroleController extends Controller
 {
-    public function __construct()
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(Request $request, User $user): RedirectResponse
     {
-        $this->middleware('auth');
-    }
-
-    public function update(Request $request, User $user): RedirectResponse
-    {
-        $this->authorize('do-everything');
+        Gate::authorize('do-everything');
 
         if ($request->user()->is($user)) {
             return to_route('users.show', $user)

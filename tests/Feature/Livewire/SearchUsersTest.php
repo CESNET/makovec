@@ -2,17 +2,18 @@
 
 namespace Tests\Feature\Livewire;
 
-use App\Http\Livewire\SearchUsers;
+use App\Livewire\SearchUsers;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class SearchUsersTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function search_users_component_can_render(): void
     {
         $component = Livewire::test(SearchUsers::class);
@@ -20,7 +21,7 @@ class SearchUsersTest extends TestCase
         $component->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     public function users_index_page_contains_search_users_component(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -33,7 +34,7 @@ class SearchUsersTest extends TestCase
             ->assertSeeLivewire(SearchUsers::class);
     }
 
-    /** @test */
+    #[Test]
     public function search_users_component_can_search_users(): void
     {
         $alice = User::factory()->create(['active' => true, 'admin' => true]);

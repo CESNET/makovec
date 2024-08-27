@@ -8,7 +8,7 @@
             <a class="hover:underline text-blue-500"
                 href="{{ __('welcome.pii-link') }}">{{ __('welcome.pii-text') }}</a><br>
             &copy; 2023&ndash;<?= date('Y') ?> <a class="hover:underline text-blue-500"
-                href="https://www.cesnet.cz">CESNET</a>,
+                href="https://www.cesnet.cz">CESNET</a> &middot;
             <a class="hover:underline text-blue-500" href="mailto:info@eduroam.cz">info@eduroam.cz</a>
         </small>
     </p>

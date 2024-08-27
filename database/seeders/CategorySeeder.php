@@ -43,6 +43,11 @@ class CategorySeeder extends Seeder
                 'description' => 'Blind Devices',
                 'vlan' => $type,
             ],
+            [
+                'type' => $type = 'training',
+                'description' => 'Training Devices',
+                'vlan' => $type,
+            ],
         ];
 
         foreach ($categories as $category) {

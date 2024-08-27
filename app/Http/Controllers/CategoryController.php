@@ -6,21 +6,17 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        $this->authorize('do-everything');
+        Gate::authorize('do-everything');
 
         return view('categories.index');
     }
@@ -30,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create(): View
     {
-        $this->authorize('do-everything');
+        Gate::authorize('do-everything');
 
         return view('categories.create');
     }
@@ -40,7 +36,7 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request): RedirectResponse
     {
-        $this->authorize('do-everything');
+        Gate::authorize('do-everything');
 
         $category = Category::create($request->validated());
 
@@ -53,7 +49,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category): View
     {
-        $this->authorize('do-everything');
+        Gate::authorize('do-everything');
 
         $devices = $category->devices()->count();
         $category->load('users');
@@ -66,7 +62,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category): View
     {
-        $this->authorize('do-everything');
+        Gate::authorize('do-everything');
 
         return view('categories.edit', compact('category'));
     }
@@ -76,7 +72,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category): RedirectResponse
     {
-        $this->authorize('do-everything');
+        Gate::authorize('do-everything');
 
         $category->update($request->validated());
 
@@ -85,7 +81,7 @@ class CategoryController extends Controller
                 ->with('status', __('categories.updated', ['type' => $category->type]));
         }
 
-        return to_route('categories.show', compact('category'));
+        return to_route('categories.show', $category);
     }
 
     /**
@@ -93,7 +89,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category): RedirectResponse
     {
-        $this->authorize('do-everything');
+        Gate::authorize('do-everything');
 
         if ($category->devices()->count()) {
             return to_route('categories.show', $category)

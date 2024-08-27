@@ -6,13 +6,15 @@ use App\Models\Category;
 use App\Models\Device;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class CategoryControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_see_the_list_of_categories(): void
     {
         Category::factory()->times(5)->create();
@@ -25,7 +27,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_see_a_form_to_add_a_new_category(): void
     {
         $this
@@ -35,7 +37,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_add_a_new_category(): void
     {
         $this
@@ -45,7 +47,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_see_categories_details(): void
     {
         $category = Category::factory()->create();
@@ -57,7 +59,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_see_the_edit_form_for_a_category(): void
     {
         $category = Category::factory()->create();
@@ -69,7 +71,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_update_a_category(): void
     {
         $category = Category::factory()->create();
@@ -81,7 +83,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function an_anonymouse_cannot_delete_a_category(): void
     {
         $category = Category::factory()->create();
@@ -93,7 +95,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeText('login');
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_see_the_list_of_categories(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -107,7 +109,7 @@ class CategoryControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_see_a_form_to_add_a_new_category(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -119,7 +121,7 @@ class CategoryControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_add_a_new_category(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -132,7 +134,7 @@ class CategoryControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_see_categories_details(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -146,7 +148,7 @@ class CategoryControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_see_the_edit_form_for_a_category(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -160,7 +162,7 @@ class CategoryControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_update_a_category(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -176,7 +178,7 @@ class CategoryControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_delete_a_category(): void
     {
         $user = User::factory()->create(['active' => true]);
@@ -190,7 +192,7 @@ class CategoryControllerTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_see_the_list_of_categories(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -206,7 +208,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeTextInOrder(Category::pluck('type')->toArray());
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_see_a_form_to_add_a_new_category(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -219,7 +221,7 @@ class CategoryControllerTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_add_a_new_category(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -234,11 +236,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeText(__('categories.added', ['type' => $category['type']]));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidCategoryData
-     */
+    #[DataProvider('invalidCategoryData')]
     public function test_validation_for_a_new_category(string $field, mixed $data, string $message): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -265,7 +263,7 @@ class CategoryControllerTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_add_a_category_with_duplicated_vlan(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -280,7 +278,7 @@ class CategoryControllerTest extends TestCase
             ->assertSessionHasErrors(['vlan' => __('categories.uniqueness_required')]);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_see_categories_details(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -296,7 +294,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeInOrder(Category::select('type', 'description', 'vlan')->first()->toArray());
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_see_the_edit_form_for_a_category(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -312,7 +310,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeInOrder(Category::select('type', 'description', 'vlan')->first()->toArray());
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_update_a_category(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -329,11 +327,7 @@ class CategoryControllerTest extends TestCase
             ->assertSeeText(__('categories.updated', ['type' => $category_new['type']]));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidCategoryData
-     */
+    #[DataProvider('invalidCategoryData')]
     public function test_validation_for_an_existing_category(string $field, mixed $data, string $message): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -347,7 +341,7 @@ class CategoryControllerTest extends TestCase
             ->assertSessionHasErrors([$field => $message]);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_update_a_category_with_no_change(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -362,7 +356,7 @@ class CategoryControllerTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_update_a_category_with_duplicated_vlan(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -377,7 +371,7 @@ class CategoryControllerTest extends TestCase
             ->assertSessionHasErrors(['vlan' => __('categories.uniqueness_required')]);
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_can_delete_a_category(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -394,7 +388,7 @@ class CategoryControllerTest extends TestCase
         $this->assertCount(0, Category::all());
     }
 
-    /** @test */
+    #[Test]
     public function an_admin_cannot_delete_a_category_with_devices(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -413,7 +407,7 @@ class CategoryControllerTest extends TestCase
         $this->assertCount(1, Category::all());
     }
 
-    /** @test */
+    #[Test]
     public function a_form_to_add_a_category_shows_all_texts(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);

@@ -2,18 +2,19 @@
 
 namespace Tests\Feature\Livewire;
 
-use App\Http\Livewire\AddCategoryManagers;
+use App\Livewire\AddCategoryManagers;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class AddCategoryManagersTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function add_category_managers_component_can_render()
     {
         $component = Livewire::test(AddCategoryManagers::class);
@@ -21,7 +22,7 @@ class AddCategoryManagersTest extends TestCase
         $component->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     public function add_category_managers_component_can_add_a_manager(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);
@@ -36,11 +37,11 @@ class AddCategoryManagersTest extends TestCase
                 'category' => $category->id,
             ])
             ->call('addManager', $user->id)
-            ->assertEmittedTo('list-category-managers', 'refreshList');
+            ->assertDispatched('manager-added');
         $this->assertCount(1, $category->users()->get());
     }
 
-    /** @test */
+    #[Test]
     public function add_category_managers_component_can_search_users(): void
     {
         $admin = User::factory()->create(['active' => true, 'admin' => true]);

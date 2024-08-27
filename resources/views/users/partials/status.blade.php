@@ -3,9 +3,9 @@
     @method('patch')
 
     @if ($user->active)
-        <x-button @click.prevent="open = !open" color="blue">{{ __('common.deactivate') }}</x-button>
+        <x-button x-on:click.prevent="open = !open" color="blue">{{ __('common.deactivate') }}</x-button>
     @else
-        <x-button @click.prevent="open = !open" color="red">{{ __('common.activate') }}</x-button>
+        <x-button x-on:click.prevent="open = !open" color="red">{{ __('common.activate') }}</x-button>
     @endif
 
     <x-modal>
