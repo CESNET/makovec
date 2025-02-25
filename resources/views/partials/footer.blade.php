@@ -1,7 +1,7 @@
 <footer>
     <hr class="hidden">
     <div
-        class="bg-gradient-to-r from-gray-100 dark:from-gray-800 to-gray-100 dark:to-gray-800 via-gray-300 dark:via-gray-600 w-full h-px mt-4 mb-3">
+        class="bg-linear-to-r from-gray-100 dark:from-gray-800 to-gray-100 dark:to-gray-800 via-gray-300 dark:via-gray-600 w-full h-px mt-4 mb-3">
     </div>
     <p class="text-center opacity-75">
         <small class="text-sm">

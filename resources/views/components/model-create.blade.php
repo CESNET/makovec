@@ -1,6 +1,6 @@
 <form id="add" action="{{ $action }}" method="POST">
     @csrf
-    <div class="dark:bg-gray-800 sm:rounded-lg mb-6 overflow-hidden bg-white shadow">
+    <div class="dark:bg-gray-800 sm:rounded-lg mb-6 overflow-hidden bg-white shadow-sm">
         <div class="sm:px-6 px-4 py-5">
             <h3 class="text-lg font-semibold">{{ $header }}</h3>
         </div>

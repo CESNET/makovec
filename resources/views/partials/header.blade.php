@@ -1,8 +1,8 @@
 <header>
     <noscript>
         <div class="dark:bg-red-900 text-red-50 py-4 font-bold bg-red-700">
-            <div class="flex items-center max-w-screen-xl px-4 mx-auto space-x-4">
-                <div class="dark:bg-red-700 p-2 bg-red-900 rounded">
+            <div class="flex items-center max-w-(--breakpoint-xl) px-4 mx-auto space-x-4">
+                <div class="dark:bg-red-700 p-2 bg-red-900 rounded-sm">
                     <svg class="text-red-50 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -18,7 +18,7 @@
     </noscript>
 
     <div class="md:h-16 dark:bg-gray-800 bg-gray-200">
-        <div class="md:pl-4 h-full max-w-screen-xl mx-auto">
+        <div class="md:pl-4 h-full max-w-(--breakpoint-xl) mx-auto">
             <nav x-data="{ open: false }" class="md:flex-row md:items-center flex flex-col justify-between h-full">
 
                 <div class="md:flex-row md:items-center flex flex-col">
@@ -61,7 +61,7 @@
                 <div class="md:flex-row flex flex-col">
                     <ul class="md:pr-4 md:flex md:flex-row md:text-sm md:items-center flex-col hidden" id="profile">
                         <li>
-                            <a class="md:inline-block md:rounded hover:bg-gray-400 hover:text-gray-900 whitespace-nowrap block px-4 py-2"
+                            <a class="md:inline-block md:rounded-sm hover:bg-gray-400 hover:text-gray-900 whitespace-nowrap block px-4 py-2"
                                 @env(['local', 'testing']) href="/fakelogout"
                             @else
                                 href="{{ route('logout') }}" @endenv>{{ __('common.logout') }}</a>
@@ -93,7 +93,7 @@
     </div>
 
     <div class="dark:bg-gray-700 h-10 bg-gray-100">
-        <div class="md:px-8 h-full max-w-screen-xl px-4 mx-auto">
+        <div class="md:px-8 h-full max-w-(--breakpoint-xl) px-4 mx-auto">
             <div class="flex items-center justify-between h-full text-lg font-semibold">
                 <div>
                     @yield('title')

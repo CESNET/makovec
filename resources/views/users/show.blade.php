@@ -24,14 +24,14 @@
             </div>
             @if (count($emails) > 1)
                 @can('update', $user)
-                    <div class="p-4 mt-4 bg-white border rounded-lg shadow">
+                    <div class="p-4 mt-4 bg-white border rounded-lg shadow-sm">
                         <p class="mb-4 text-gray-500">
                             {{ __('users.select_different_email') }}
                         </p>
                         <form action="{{ route('users.update', $user) }}" method="post">
                             @csrf
                             @method('patch')
-                            <select class="mr-4 rounded" name="email">
+                            <select class="mr-4 rounded-sm" name="email">
                                 @foreach ($emails as $email)
                                     <option value="{{ $email }}" @if ($email === $user->email) selected @endif>
                                         {{ $email }}

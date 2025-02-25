@@ -12,7 +12,7 @@
             <div class="sm:p-6 sm:pb-4 px-4 pt-5 pb-4 bg-white">
                 <div class="sm:flex sm:items-start">
                     <div
-                        class="sm:mx-0 sm:h-10 sm:w-10 flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-red-100 rounded-full">
+                        class="sm:mx-0 sm:h-10 sm:w-10 flex items-center justify-center shrink-0 w-12 h-12 mx-auto bg-red-100 rounded-full">
                         <!-- Heroicon name: exclamation -->
                         <svg class="w-6 h-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -34,11 +34,11 @@
             </div>
             <div class="bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse px-4 py-3">
                 <button {{ $attributes }} @click="open = false"
-                    class="hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm">
+                    class="hover:bg-red-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-red-600 border border-transparent rounded-md shadow-xs">
                     {{ $action }}
                 </button>
                 <button @click="open = false" type="button"
-                    class="hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm">
+                    class="hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-xs">
                     {{ __('common.cancel') }}
                 </button>
             </div>

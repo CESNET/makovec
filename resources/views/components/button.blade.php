@@ -2,7 +2,7 @@
 
 <button
     {{ $attributes->class([
-        'rounded shadow',
+        'rounded-sm shadow-sm',
         'bg-blue-600 hover:bg-blue-700 text-blue-50' => $color === 'blue',
         'bg-red-600 hover:bg-red-700 text-red-50' => $color === 'red',
         'bg-gray-600 hover:bg-gray-700 text-gray-50' => $color === 'gray',

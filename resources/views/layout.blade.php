@@ -13,7 +13,7 @@
 
     @include('partials.header')
 
-    <main class="md:p-8 max-w-screen-xl p-4 mx-auto">
+    <main class="md:p-8 max-w-(--breakpoint-xl) p-4 mx-auto">
         <x-status-message />
         @yield('content')
     </main>

@@ -10,12 +10,12 @@
 
 <body class="sm:p-16 bg-gray-50 dark:bg-gray-900 dark:text-gray-400 p-4 antialiased text-gray-700">
 
-    <div class="max-w-screen-md mx-auto">
+    <div class="max-w-(--breakpoint-md) mx-auto">
 
         <noscript>
-            <div class="sm:px-8 dark:bg-red-900 text-red-50 p-4 mb-4 font-bold bg-red-700 rounded shadow">
+            <div class="sm:px-8 dark:bg-red-900 text-red-50 p-4 mb-4 font-bold bg-red-700 rounded-sm shadow-sm">
                 <div class="flex items-center space-x-4">
-                    <div class="dark:bg-red-700 p-2 bg-red-900 rounded">
+                    <div class="dark:bg-red-700 p-2 bg-red-900 rounded-sm">
                         <svg class="text-red-50 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -31,13 +31,13 @@
         </noscript>
 
         <div
-            class="sm:p-8 dark:bg-gray-800 dark:border-gray-500 bg-gradient-to-br from-gray-100 dark:from-gray-800 to-gray-100 dark:to-gray-800 via-gray-200 dark:via-gray-900 p-4 bg-gray-100 border rounded shadow-md">
+            class="sm:p-8 dark:bg-gray-800 dark:border-gray-500 bg-linear-to-br from-gray-100 dark:from-gray-800 to-gray-100 dark:to-gray-800 via-gray-200 dark:via-gray-900 p-4 bg-gray-100 border rounded-sm shadow-md">
 
             <header>
                 <h1 class="sm:text-5xl pb-4 text-4xl font-bold tracking-wider">{{ config('app.name') }}</h1>
                 <p class="sm:text-lg leading-relaxed">{!! __('welcome.introduction') !!}</p>
                 <div
-                    class="bg-gradient-to-r from-gray-100 dark:from-gray-800 to-gray-100 dark:to-gray-800 via-gray-800 dark:via-gray-100 w-full h-px my-8">
+                    class="bg-linear-to-r from-gray-100 dark:from-gray-800 to-gray-100 dark:to-gray-800 via-gray-800 dark:via-gray-100 w-full h-px my-8">
                 </div>
                 <hr class="hidden">
             </header>
@@ -62,14 +62,14 @@
                 </ul>
 
                 <p class="sm:pt-10 pt-6 text-center">
-                    <a class="md:inline-block hover:bg-blue-600 text-blue-50 hover:shadow-lg block px-6 py-3 font-bold bg-blue-500 rounded shadow"
+                    <a class="md:inline-block hover:bg-blue-600 text-blue-50 hover:shadow-lg block px-6 py-3 font-bold bg-blue-500 rounded-sm shadow-sm"
                         href="{{ route('login') }}">{{ __('common.login') }}</a>
                 </p>
             </main>
 
             <footer>
                 <div
-                    class="bg-gradient-to-r from-gray-100 dark:from-gray-800 to-gray-100 dark:to-gray-800 via-gray-300 dark:via-gray-600 w-full h-px mt-4 mb-3">
+                    class="bg-linear-to-r from-gray-100 dark:from-gray-800 to-gray-100 dark:to-gray-800 via-gray-300 dark:via-gray-600 w-full h-px mt-4 mb-3">
                 </div>
                 <hr class="hidden">
                 <p class="text-center opacity-75">
@@ -87,7 +87,7 @@
 
         @if (App::environment(['local', 'testing']))
             <hr class="hidden">
-            <div class="mt-4 text-blue-900 bg-blue-100 rounded shadow">
+            <div class="mt-4 text-blue-900 bg-blue-100 rounded-sm shadow-sm">
                 <h2 class="sm:text-xl p-4 font-semibold bg-blue-400 rounded-t">Login without authentication</h2>
                 <form action="/fakelogin" method="POST">
                     @csrf
@@ -97,7 +97,7 @@
                             <input class="w-20" type="number" name="id" id="user_id" value="1"
                                 min="1" required>
                         </div>
-                        <button class="hover:bg-blue-400 hover:shadow-lg px-6 py-3 bg-blue-300 rounded shadow"
+                        <button class="hover:bg-blue-400 hover:shadow-lg px-6 py-3 bg-blue-300 rounded-sm shadow-sm"
                             type="submit">Fake Login</button>
                     </div>
                 </form>
