@@ -2,7 +2,7 @@
 
 <div x-cloak x-show="open" class="fixed inset-0 z-10 overflow-y-auto">
     <div class="overlay sm:block sm:p-0 flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center">
-        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div class="fixed -z-10 inset-0 transition-opacity" aria-hidden="true">
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
 
