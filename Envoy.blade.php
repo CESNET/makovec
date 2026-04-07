@@ -158,7 +158,7 @@
     php artisan view:cache -q --no-ansi --no-interaction
 
     echo "Reload PHP-FPM"
-    sudo systemctl reload php8.3-fpm
+    sudo systemctl reload php8.4-fpm
 @endtask
 
 @task('cleanup')
