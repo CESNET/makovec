@@ -7,11 +7,11 @@ Makovec is a simple [Laravel](https://www.laravel.com)-based web application to 
 
 ## Requirements
 
-This application is written in Laravel 12 and uses PHP version at least 8.2.
+This application is written in Laravel 13 and uses PHP version at least 8.3.
 
 Authentication is managed by locally running Shibboleth Service Provider, so Apache web server is highly recommended as there is an official Shibboleth module for Apache.
 
-- PHP 8.2
+- PHP 8.3
 - MariaDB 10
 - Shibboleth SP 3
 - Apache 2.4
@@ -127,7 +127,7 @@ Then tweak `attrChecker.html`, `localLogout.html` and `metadataError.html` so us
 
 ## Installation
 
-The easiest way to install Makovec is to use Laravel [Envoy](https://laravel.com/docs/12.x/envoy) script that is included in this repository.
+The easiest way to install Makovec is to use Laravel [Envoy](https://laravel.com/docs/13.x/envoy) script that is included in this repository.
 
 Laravel Envoy is currently available only for _macOS_ and _Linux_ operating systems. However, on Windows you can use [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Of course, you can also use a virtualized Linux system inside, for example, a [VirtualBox](https://www.virtualbox.org) machine.
 
