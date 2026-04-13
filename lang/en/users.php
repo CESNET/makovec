@@ -9,6 +9,7 @@ return [
     'cannot_tweak_your_roles' => 'You cannot tweak your own roles.',
     'deadmined' => ':name has been successfully removed administrator rights.',
     'demanagered' => ':name has been successfully removed manager rights.',
+    'email_changed' => 'Email has been changed successfully.',
     'inactive' => ':name has been successfully deactivated.',
     'managered' => ':name has been successfully granted manager rights.',
     'none_found' => 'No user found.',
